@@ -74,5 +74,15 @@ namespace Sat.Recruitment.API.Controllers
 				return StatusCode(500, new ResultDto<User> { IsSuccess = false, Errors = new[] { ex.Message } });
 			}
 		}
+
+		[HttpPut("{id}")]
+		public void Put(int id, [FromBody] User user)
+		{
+		}
+
+		[HttpDelete("{id}")]
+		public void Delete(int id)
+		{
+		}
 	}
 }
