@@ -49,7 +49,7 @@ namespace Sat.Recruitment.Application.Test
 		{
 			// Arrange
 			_mockRepository?.Setup(mr => mr.ListAsync())
-				.Returns(new Task<IReadOnlyList<User>>(() => new List<User>()));
+				.Returns(new Task<IReadOnlyList<User>>(() => new  User[1]));
 			             
 			// Act
 			var result = await _userService?.GetAllUsersAsync();
