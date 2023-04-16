@@ -11,10 +11,10 @@ namespace Sat.Recruitment.Application.Test
 	[TestClass]
 	public class UserServiceTests
 	{
-		private UserService _userService;
-		private Mock<IBaseRepository<User, int>> _mockRepository;
-		private Mock<IGifCalculationStrategyFactory> _mockStrategyFactory;
-		private Mock<ILogger<UserService>> _mockLogger;
+		private UserService? _userService;
+		private Mock<IBaseRepository<User, int>>? _mockRepository;
+		private Mock<IGifCalculationStrategyFactory>? _mockStrategyFactory;
+		private Mock<ILogger<UserService>>? _mockLogger;
 
 		[TestInitialize]
 		public void UserServiceTestInitialize()
@@ -34,25 +34,25 @@ namespace Sat.Recruitment.Application.Test
 				Address = "Caracas-Venezuela",
 				Name = "Andreidy Rosa"
 			};
-			_mockRepository.Setup(mr => 
+			_mockRepository?.Setup(mr => 
 				mr.ListAsync(It.IsAny<Expression<Func<User, bool>>>()))
 				.Returns(new Task<IReadOnlyList<User>>(() => new User[1]));
 			
-			await _userService.AddUserAsync(user);
+			await _userService?.AddUserAsync(user);
 
 			// Act and Assert
 			await Assert.ThrowsExceptionAsync<Exception>(() => _userService.AddUserAsync(user));
 		}
 
 		[TestMethod]
-		public async Task GetAllUsersAsync_ReturnsEmptyList()
+		public async Task GetAllUsersAsync_ReturnsNotEmptyList()
 		{
 			// Arrange
-			_mockRepository.Setup(mr => mr.ListAsync())
-				.Returns(new Task<IReadOnlyList<User>>(() => new User[1]));
-
+			_mockRepository?.Setup(mr => mr.ListAsync())
+				.Returns(new Task<IReadOnlyList<User>>(() => new List<User>()));
+			             
 			// Act
-			var result = await _userService.GetAllUsersAsync();
+			var result = await _userService?.GetAllUsersAsync();
 
 			//Assert
 			Assert.AreEqual(1, result.Count);
